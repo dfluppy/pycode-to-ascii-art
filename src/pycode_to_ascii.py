@@ -1,11 +1,10 @@
 import base64
-
 import cv2
 
-
 class PyCodeTOAscii:
-    SET_ASCII_CHARS = ('@', '*', ' ', ' ',)
-    SET_SCALE = 50
+    SET_ASCII_CHARS: tuple[str] = ('@', '*', ' ', ' ',)
+    SET_SCALE: int = 50
+    SET_THRESHOLD = 0
 
     def __init__(self,
                  img: str,
@@ -15,7 +14,8 @@ class PyCodeTOAscii:
                  height: int,
                  invert: bool,
                  add_exec: bool,
-                 pycode: str):
+                 pycode: str,
+                 threshold: int = SET_THRESHOLD):
 
         self.img = img
         self.ascii_chars = ascii_chars
@@ -25,14 +25,21 @@ class PyCodeTOAscii:
         self.invert = invert
         self.add_exec = add_exec
         self.pycode = pycode
+        self.threshold = threshold
 
     @staticmethod
     def __checker(value, defaulf):
+        """
+        Установка значений в локальные атрибуты класса
+        :param value: значение юзера
+        :param defaulf: дефолтные значения
+        :return: значения (int / bool / tuple)
+        """
         return value if value else defaulf
 
     def __get_char_bright(self, brightness_pixel: int, ascii_chars: tuple[str]) -> str:
         """
-        Метод для получения подходящего символа под пиксель
+        Метод для получения подходящего символа под яркость пикселя
         :param brightness_pixel: `int` текущего пикселя
         :param ascii_chars: `tuple` кортеж с набором допустимых символов
         :return: подходящий символ под яркость пикселя
@@ -43,12 +50,9 @@ class PyCodeTOAscii:
 
         return ascii_chars[index_char]
 
-    def generate_ascii_art(self) -> str:
+    def generate_ascii_art(self, binary_image) -> str:
         """
         Метод для генерации ASCII арта
-        :param img: `str` путь к файлу
-        :param scale: `int` размер изображения (указывается в `%`)
-        :param ascii_chars: `tuple` кортеж с набором допустимых символов
         :return: `str` сгенерированный ASCII арт
         """
 
@@ -78,11 +82,10 @@ class PyCodeTOAscii:
         new_width = int(self.width * scale_size)
         new_height = int((aspect_ratio * new_width * 0.6) * scale_size)
 
-        resize_img = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_AREA)
-        gray_img = cv2.cvtColor(resize_img, cv2.COLOR_BGR2GRAY)
+        prepared_img = cv2.resize(binary_image, (new_width, new_height), interpolation=cv2.INTER_AREA)
 
         ascii_art = ''
-        for row in gray_img:
+        for row in prepared_img:
             for brightness_pixel in row:
                 ascii_art += self.__get_char_bright(brightness_pixel, self.ascii_chars)
             ascii_art += '\n'

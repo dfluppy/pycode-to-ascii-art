@@ -1,23 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-                           QFont, QFontDatabase, QGradient, QIcon,
-                           QImage, QKeySequence, QLinearGradient, QPainter,
-                           QPalette, QPixmap, QRadialGradient, QTransform, QIntValidator)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, Qt)
+from PySide6.QtGui import (QCursor, QFont, QIntValidator)
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QCheckBox, QFormLayout,
     QHBoxLayout, QLabel, QLineEdit, QMainWindow,
     QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
     QSplitter, QStatusBar, QTextEdit, QVBoxLayout,
     QWidget)
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1200, 1100)
+        MainWindow.resize(1200, 800)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -141,6 +137,11 @@ class Ui_MainWindow(object):
         self.copy_art_button.setCursor(QCursor(Qt.CursorShape.ArrowCursor))
 
         self.verticalLayout_2.addWidget(self.copy_art_button, 0, Qt.AlignmentFlag.AlignRight)
+
+        self.notification_label = QLabel(self.centralwidget)
+        self.notification_label.setFont(QFont("Arial", 10))
+        self.notification_label.setStyleSheet("color: white; background-color: rgba(0, 0, 0, 128); padding: 10px; border-radius: 10px;")
+        self.notification_label.hide()
 
 
         self.formLayout.setLayout(0, QFormLayout.FieldRole, self.verticalLayout_2)
