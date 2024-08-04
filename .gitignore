@@ -2,3 +2,4 @@ venv
 gui.ui
 .idea
 src/__pycache__
+src/gui/__pycache__
