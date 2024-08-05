@@ -20,11 +20,11 @@
 
 5. **Инвертирование:** инвертируйте цвета (`Invert`) для получения альтернативного вида арта
 
-<img src="readme_img/5.png" alt="ASCII Art" width="1000">
+<img src="readme_img/4.png" alt="ASCII Art" width="1000">
 
 6. **Набор символов:** составляйте свои наборы символов (`ASCII chars`) для создания уникального стиля
 
-<img src="readme_img/4.png" alt="ASCII Art" width="1000">
+<img src="readme_img/5.png" alt="ASCII Art" width="1000">
 
 7. **Добавление кода Python:** Вы можете встраивать свой Python код (`Add exec`) прямо в ASCII-арт!
 
